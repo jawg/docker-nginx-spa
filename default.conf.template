@@ -56,7 +56,7 @@ map $sent_http_content_type $expires {
 }
 
 server {
-  listen 80;
+  listen ${NGINX_LISTEN_ADDRESS};
   root /usr/share/nginx/html;
   expires $expires;
 

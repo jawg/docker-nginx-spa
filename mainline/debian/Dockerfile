@@ -1,3 +1,5 @@
 FROM nginx:mainline
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+ENV NGINX_LISTEN_ADDRESS 80
+
+COPY default.conf.template /etc/nginx/templates/default.conf.template

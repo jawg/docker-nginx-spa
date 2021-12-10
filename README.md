@@ -31,6 +31,7 @@ $ docker run --name some-nginx -p 8080:80 -v /some/content:/usr/share/nginx/html
 
 ## Additional features
 
+- Run your server on a differrent port with the environment `NGINX_LISTEN_ADDRESS`
 - gzip on selected mime types
 - no-cache on html files
 - 24h of expiry for images
