@@ -11,18 +11,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
+      uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v3
     - name: Login to DockerHub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push Mainline Debian Version
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         file: ./mainline/debian/Dockerfile
@@ -33,7 +33,7 @@ jobs:
           jawg/nginx-spa:1
           jawg/nginx-spa:mainline
     - name: Build and push Mainline Alpine Version
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         file: ./mainline/debian/Dockerfile
@@ -44,7 +44,7 @@ jobs:
           jawg/nginx-spa:1-alpine
           jawg/nginx-spa:mainline-alpine
     - name: Build and push Stable Debian Version
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         file: ./stable/debian/Dockerfile
@@ -53,7 +53,7 @@ jobs:
         tags: |
           jawg/nginx-spa:stable
     - name: Build and push Stable Alpine Version
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         file: ./stable/debian/Dockerfile
