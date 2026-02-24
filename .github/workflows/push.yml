@@ -3,15 +3,13 @@ name: Push Docker Hub
 
 on:
   push:
-    branches: [ master, main ]
-  schedule:
-    # Every sunday at 0:00
-    - cron:  '0 0 * * 0'
+    branches: [ master, main' ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
@@ -22,42 +20,50 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push Mainline Debian Version
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./mainline/debian/Dockerfile
+        file: ./Dockerfile
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
+        build-args: |
+          VERSION=mainline
         push: true
         tags: |
           jawg/nginx-spa:latest
           jawg/nginx-spa:1
           jawg/nginx-spa:mainline
     - name: Build and push Mainline Alpine Version
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./mainline/debian/Dockerfile
+        file: ./Dockerfile
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
+        build-args: |
+          VERSION=mainline-alpine
         push: true
         tags: |
           jawg/nginx-spa:alpine
           jawg/nginx-spa:1-alpine
           jawg/nginx-spa:mainline-alpine
     - name: Build and push Stable Debian Version
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./stable/debian/Dockerfile
+        file: ./Dockerfile
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
+        build-args: |
+          VERSION=stable
         push: true
         tags: |
           jawg/nginx-spa:stable
     - name: Build and push Stable Alpine Version
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./stable/debian/Dockerfile
+        file: ./Dockerfile
         platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
+        build-args: |
+          VERSION=stable-alpine
         push: true
         tags: |
           jawg/nginx-spa:stable-alpine

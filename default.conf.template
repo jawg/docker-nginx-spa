@@ -61,11 +61,15 @@ server {
   expires $expires;
   server_tokens off;
 
-  location / {
-    try_files $uri @rewrites;
-  }
+#:default:  location / {
+#:default:    index  index.html index.htm;
+#:default:  }
 
-  location @rewrites {
-    rewrite ^(.+)$ /index.html last;
-  }
+#:spa:  location / {
+#:spa:    try_files $uri @rewrites;
+#:spa:  }
+
+#:spa:  location @rewrites {
+#:spa:    rewrite ^(.+)$ /index.html last;
+#:spa:  }
 }

@@ -31,7 +31,8 @@ $ docker run --name some-nginx -p 8080:80 -v /some/content:/usr/share/nginx/html
 
 ## Additional features
 
-- Run your server on a differrent port with the environment `NGINX_LISTEN_ADDRESS`
+- Run your server on a different port with the environment `NGINX_LISTEN_ADDRESS`. Default value is `80`.
+- Chose your mode between `spa` and `default` with `NGINX_SERVER_MODE`. Default value is `spa`.
 - gzip on selected mime types
 - no-cache on html files
 - 24h of expiry for images
